@@ -1,5 +1,5 @@
 #GLOBAL VARIABLE
-ttt = [[1,'x',3],[4,'x',6],[7,'x',9]]
+ttt = [['s','x','t'],['r','x','e'],['w','x','q']]
 
 #PRINTING THE BOARD FUNCTION
 def printing():
@@ -9,6 +9,20 @@ def printing():
             print('---------')
         print(j[0],'|',j[1],'|',j[2])
     print()
+
+#RESET THE BOARD
+## WITH THIS FUNCTION THE USER CAN RESET BOARD TO PLAY AGAIN
+## THIS FUNCTION WORKS FILLING THE LIST IN ORDER FROM ONE TO NINE 
+def reset_board():
+    nav1 , nav2 , cnt = 0 , 0 , 1
+    while nav1 < 3:
+        while nav2 < 3:
+            if ttt[nav1][nav2] != cnt:
+                ttt[nav1][nav2] = cnt
+            cnt += 1
+            nav2 +=1
+        nav2 = 0
+        nav1 +=1
 
 #WINNING METHODS
 ##THIS FUNCTION WILL DETECT IF ARE A MATCH OF THREE X OR O IN A ROW
@@ -71,7 +85,7 @@ def win_declaretion(nav1,nav2):
         return 'you lose'
 
 
-
-
 if __name__ == "__main__":
-    print(winning_column())
+    printing()
+    reset_board()
+    printing()
