@@ -1,5 +1,8 @@
+import random
+
+
 #GLOBAL VARIABLE
-ttt = [['s','x','t'],['r','x','e'],['w','x','q']]
+ttt = [[1,2,3],[4,5,6],[7,8,9]]
 
 #PRINTING THE BOARD FUNCTION
 def printing():
@@ -85,7 +88,46 @@ def win_declaretion(nav1,nav2):
         return 'you lose'
 
 
+#USER OPTION
+def selection(opt):
+    nav1 , nav2 = 0 , 0
+    while nav1 < 3:
+        while nav2 < 3:
+            if opt == ttt[nav1][nav2]:
+                ttt[nav1][nav2] = 'x'
+                find = True
+                return find
+            else:
+                find = False
+            nav2 += 1
+        nav2 = 0
+        nav1 += 1
+    return find
+#THIS FUNCTION WILL SELECT RANDOMLY A OPTION FOR THE CPU
+##WITHOUT THE METHODS OF WINNING IN THE MAIN FUNCTION THE GAME WILL CRASH
+##BECAUSE AT THE END IT WILL ENTER IN A INFINITE LOOP LOOKING FOR A AVAILABLE SPOT
+def cpu_option():
+    while True:
+        nav1 , nav2 = 0 , 0
+        cpu_opt = random.randint(1,9)
+        while nav1 < 3:
+            while nav2 < 3:
+                if cpu_opt == ttt[nav1][nav2]:
+                    ttt[nav1][nav2] = 'o'
+                    find = True
+                    return find
+                nav2 += 1
+            nav2 = 0
+            nav1 += 1
+
+
+
+
 if __name__ == "__main__":
-    printing()
-    reset_board()
-    printing()
+    on = True
+    while on:
+        printing()
+        option = int(input('Select a spot of the board: '))
+        if not selection(option):
+            print('that spot is occupied')
+        cpu_option()
