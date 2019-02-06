@@ -40,7 +40,7 @@ def winning_row():
                 return 'you win'
             elif cnt == 3 and aux == 'o':
                 return 'you lose'
-    return 'none'
+    return False
 ##THIS FUNCTION WILL DETECT IF ARE A MATCH OF THREE X OR O IN A COLUMN
 def winning_column():
     nav1 , nav2 , cnt = 0 , 0 , 0
@@ -55,7 +55,7 @@ def winning_column():
                 nav1 = 0
                 break
         nav2 += 1
-    return 'none'
+    return False
 ##THIS FUNCTION WILL DETECT IF ARE A MATCH OF THREE X OR O IN A DIAGONAL
 def winning_diagonal():
     nav1,nav2,cnt = 0,0,0
@@ -79,7 +79,8 @@ def winning_diagonal():
                 return win_declaretion(nav1,nav2)
         else:
             break
-    return 'none'
+    return False
+
 ###THIS FUNCTION IS TO AVOID REPEATING THE SAME CONSULT IN ALL OF THE WINNING METHODS
 def win_declaretion(nav1,nav2):
     if ttt[nav1][nav2] == 'x':
@@ -120,14 +121,34 @@ def cpu_option():
             nav2 = 0
             nav1 += 1
 
-
+def end_game(final):
+    if final == 'you win':
+        print('congratulations you win!')
+        return True
+    elif final == 'you lose':
+        print('how sad, you lose :(')
+        return True
 
 
 if __name__ == "__main__":
     on = True
+    flag = False
     while on:
         printing()
         option = int(input('Select a spot of the board: '))
-        if not selection(option):
+        while not selection(option):
             print('that spot is occupied')
+            printing()
+            option = int(input('Select a spot of the board: '))
+        if not flag:
+            flag = winning_row()
+        if not flag:
+            flag = winning_column()
+        if not flag: 
+            flag = winning_diagonal()
+        if flag:
+            printing()
+            end_game(flag)
+            on = False
+
         cpu_option()
