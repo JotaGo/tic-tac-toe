@@ -27,6 +27,19 @@ def reset_board():
         nav2 = 0
         nav1 +=1
 
+def reset_game():
+    print()
+    while True:
+        user_o = input('Do you want to play again? (Y/n)\n')
+        if user_o.lower() == 'y':
+            reset_board()
+            return True
+        elif user_o.lower() == 'n':
+            return False
+        else:
+            print()
+            print('please enter a valid option')
+
 #WINNING METHODS
 ##THIS FUNCTION WILL DETECT IF ARE A MATCH OF THREE X OR O IN A ROW
 def winning_row():
@@ -67,6 +80,7 @@ def winning_diagonal():
             if cnt == 2:
                 return win_declaretion(nav1,nav2)
         else:
+            cnt = 0
             nav1 = 0
             nav2 = len(ttt[nav1]) - 1
             break
@@ -87,7 +101,6 @@ def win_declaretion(nav1,nav2):
         return 'you win'
     elif ttt[nav1][nav2] == 'o':
         return 'you lose'
-
 
 #USER OPTION
 def selection(opt):
@@ -149,6 +162,19 @@ if __name__ == "__main__":
         if flag:
             printing()
             end_game(flag)
-            on = False
-
+            on = reset_game()
+            if on:
+                flag = False
         cpu_option()
+        if not flag:
+            flag = winning_row()
+        if not flag:
+            flag = winning_column()
+        if not flag: 
+            flag = winning_diagonal()
+        if flag:
+            printing()
+            end_game(flag)
+            on = reset_game()
+            if on:
+                flag = False
